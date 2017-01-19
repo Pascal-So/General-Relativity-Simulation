@@ -1,23 +1,29 @@
-
-
-function rungeKutta(pos, vel, f){ // x'' = f(x)
-	var kv_1 = f(pos);
+function rungeKutta(pos, vel, f){ // x'' = f(x, x')
+	var kv_1 = f(pos, vel);
 	var kr_1 = vel;
 
-	var kv_2 = f(mAdd(pos, mScale(kr_1, DT/2)));
-	var kr_2 = mAdd(vel, mScale(kv_1, DT/2));
+	var kr_2 = vel.add(kv_1.scale(DT/2));
+	var kv_2 = f(pos.add(kr_1.scale(DT/2)), kr_2);
 
-	var kv_3 = f(mAdd(pos, mScale(kr_2, DT/2)));
-	var kr_3 = mAdd(vel, mScale(kv_2, DT/2));
+	var kr_3 = vel.add(kv_2.scale(DT/2));
+	var kv_3 = f(pos.add(kr_2.scale(DT/2)), kr_3);
 
-	var kv_4 = f(mAdd(pos, mScale(kr_3, DT)));
-	var kr_4 = mAdd(vel, mScale(kv_3, DT));
+	var kr_4 = vel.add(kv_3.scale(DT));	
+	var kv_4 = f(pos.add(kr_3.scale(DT)), kr_4);
 
-	var velSum = mAdd(kv_1, mAdd(mScale(kv_2, 2), mAdd(mScale(kv_3, 2), kv_4)));
-	var newVel = mAdd(vel, mScale(velSum, DT/6));
+	var velSum = kv_1
+				.add(kv_2.scale(2))
+				.add(kv_3.scale(2))
+				.add(kv_4);
 
-	var posSum = mAdd(kr_1, mAdd(mScale(kr_2, 2), mAdd(mScale(kr_3, 2), kr_4)));
-	var newPos = mAdd(pos, mScale(posSum, DT/6));
+	var newVel = vel.add(velSum.scale(DT/6));
+
+	var posSum = kr_1
+				.add(kr_2.scale(2))
+				.add(kr_3.scale(2))
+				.add(kr_4);
+				
+	var newPos = pos.add(posSum.scale(DT/6));
 
 	return {pos: newPos, vel: newVel};
 }

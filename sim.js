@@ -60,5 +60,14 @@ function init(){
 	ctx.width = 500;
 	ctx.height = 500;
 
-	gr_sim(ctx, 500, 500, 20000);
+	function run(init_t){
+		ctx.clearRect(0, 0, 500, 500);
+		gr_sim(ctx, 500, 500, 10000, init_t);
+
+		console.log(init_t);
+		setTimeout(function(){run(init_t*1.0001);}, 20);
+	}
+
+	run(0.4);
+	//	gr_sim(ctx, 500, 500, 20000);
 }

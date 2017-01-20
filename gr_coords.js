@@ -4,6 +4,7 @@ function GRCoords(p, time){
 
 	this.add = function(other){
 		var new_p = this.p.add(other.p).cleanup();
+		//console.log(new_p, new_p.cleanup());
 		var new_t = this.t + other.t;
 		return new GRCoords(new_p, new_t);
 	}

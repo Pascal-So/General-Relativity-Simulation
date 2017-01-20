@@ -1,6 +1,6 @@
-function gr_sim(ctx, width, height, steps){
+function gr_sim(ctx, width, height, steps, init_t){
 	var pos = new GRCoords(new Point(10, 0), 0);
-	var vel = new GRCoords(new Point(0, 0), 1);
+	var vel = new GRCoords(new Point(0, 0), init_t);
 
 	var show_scale = 20;
 	

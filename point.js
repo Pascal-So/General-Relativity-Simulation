@@ -55,10 +55,12 @@ function draw_point(ctx, width, height, scale, pos){
 	var x = xy.x;
 	var y = xy.y;
 
-	var fac = Math.min(width/height)/scale;
+	var fac = Math.min(width,height)/scale/2;
 
 	x = x * fac + width/2;
 	y = y * fac + height/2;
+
+	// console.log(x, y);
 
 	ctx.fillRect(x,height-y,1,1);
 }

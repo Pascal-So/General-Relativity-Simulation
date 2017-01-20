@@ -1,4 +1,4 @@
-var DT = 0.001;
+var DT = 0.01;
 
 function rungeKutta(pos, vel, f){ 
 	// it is assumed that: acceleration = f(pos, vel)
@@ -30,6 +30,12 @@ function rungeKutta(pos, vel, f){
 				.add(kr_3.scale(2))
 				.add(kr_4);
 
+	// console.log(kv_1, "kv_1");
+	// console.log(kv_2, "kv_2");
+	// console.log(kv_3, "kv_3");
+	// console.log(kv_4, "kv_4");
+	// console.log(posSum);
+
 	var newPos = pos.add(posSum.scale(DT/6));
 
 	return {pos: newPos, vel: newVel};
@@ -54,5 +60,5 @@ function init(){
 	ctx.width = 500;
 	ctx.height = 500;
 
-	gr_sim(ctx, 500, 500, 10);
+	gr_sim(ctx, 500, 500, 20000);
 }

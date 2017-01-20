@@ -1,4 +1,11 @@
-function rungeKutta(pos, vel, f){ // x'' = f(x, x')
+var DT = 0.001;
+
+function rungeKutta(pos, vel, f){ 
+	// it is assumed that: acceleration = f(pos, vel)
+
+	// the variables pos and vel must be of some type that provides a .add and .scale
+	// function. Variables are assumed to be immutable.
+
 	var kv_1 = f(pos, vel);
 	var kr_1 = vel;
 
@@ -22,8 +29,30 @@ function rungeKutta(pos, vel, f){ // x'' = f(x, x')
 				.add(kr_2.scale(2))
 				.add(kr_3.scale(2))
 				.add(kr_4);
-				
+
 	var newPos = pos.add(posSum.scale(DT/6));
 
 	return {pos: newPos, vel: newVel};
+}
+
+
+var GM = 1; // solar mass times gravitational constant
+
+function Newton_acc(pos, vel){
+	var a0 = - pos.r * GM;
+	var a1 = pos.t;
+
+	return new Point(a0, a1);
+}
+
+
+
+function init(){
+	var c = document.getElementById("canvas");
+	var ctx = c.getContext("2d");
+
+	ctx.width = 500;
+	ctx.height = 500;
+
+	gr_sim(ctx, 500, 500, 10);
 }

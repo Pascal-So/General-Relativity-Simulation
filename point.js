@@ -43,4 +43,22 @@ function Point(r, t){
 
 		return new Point(r, t);
 	}
+	this.to_cartesian = function(){
+		var x = this.r * Math.cos(this.t);
+		var y = this.r * Math.sin(this.t);
+		return {x: x, y: y};
+	}
+}
+
+function draw_point(ctx, width, height, scale, pos){
+	var xy = pos.to_cartesian();
+	var x = xy.x;
+	var y = xy.y;
+
+	var fac = Math.min(width/height)/scale;
+
+	x = x * fac + width/2;
+	y = y * fac + height/2;
+
+	ctx.fillRect(x,height-y,1,1);
 }
